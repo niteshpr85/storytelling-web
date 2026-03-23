@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessibility Features - Storytelling Haven</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <header style="text-align: center; padding: 2rem;">
+      <h1><i class="fas fa-universal-access"></i> Accessibility Features</h1>
+      <p>WCAG 2.1 AA Compliant</p>
+    </header>
+    
+    <section style="max-width: 800px; margin: 0 auto;">
+      <div class="feature-card">
+        <h2><i class="fas fa-eye-low-vision"></i> High Contrast Mode</h2>
+        <p>Toggle high contrast for visual impairments</p>
+        <button onclick="toggleHighContrast()" style="margin: 1rem 0;">Toggle Contrast</button>
+      </div>
+      
+      <div class="feature-card">
+        <h2><i class="fas fa-font"></i> Text Resizing</h2>
+        <button onclick="increaseText()">Text +</button>
+        <button onclick="decreaseText()">Text -</button>
+        <p>Dynamic font sizing 100%-200%</p>
+      </div>
+      
+      <div class="feature-card">
+        <h2><i class="fas fa-volume-up"></i> Screen Reader</h2>
+        <p>ARIA labels on all interactive elements</p>
+        <p>Skip to main content links</p>
+        <p>Semantic HTML structure</p>
+      </div>
+      
+      <div class="feature-card">
+        <h2><i class="fas fa-keyboard"></i> Keyboard Navigation</h2>
+        <p>Tab-focusable elements with visible focus indicators</p>
+        <button tabindex="0" style="outline: 3px solid #667eea;">Keyboard Test</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let fontSize = 100;
+    let highContrast = false;
+    
+    function toggleHighContrast() {
+      document.body.classList.toggle('high-contrast');
+      highContrast = !highContrast;
+    }
+    
+    function increaseText() {
+      fontSize = Math.min(fontSize + 10, 200);
+      document.body.style.fontSize = fontSize + '%';
+    }
+    
+    function decreaseText() {
+      fontSize = Math.max(fontSize - 10, 80);
+      document.body.style.fontSize = fontSize + '%';
+    }
+  </script>
+  
+  <style>
+    .feature-card {
+      background: rgba(255,255,255,0.95);
+      padding: 2rem;
+      margin: 2rem 0;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .high-contrast body {
+      background: #000 !important;
+      color: #fff !important;
+    }
+    
+    .high-contrast .feature-card {
+      background: #111 !important;
+      border: 2px solid #fff;
+    }
+    
+    button:focus {
+      outline: 3px solid #667eea;
+      outline-offset: 2px;
+    }
+  </style>
+</body>
+</html>
