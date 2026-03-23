@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Storytelling Website ✨</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1><i class="fas fa-book-open"></i> Storytelling Haven</h1>
+      <p>✨ Share and immerse yourself in captivating stories</p>
+    </header>
+
+    <!-- Create Story Form -->
+    <section id="create-section" class="fade-in">
+      <h2><i class="fas fa-pen-fancy"></i> Craft Your Story</h2>
+      <form id="story-form">
+        <input type="text" id="title" placeholder="✨ Enter an enchanting title..." required>
+        <textarea id="content" placeholder="Begin your tale... Let imagination flow through your words." required rows="6"></textarea>
+        <div style="display: flex; gap: 20px;">
+          <input type="text" id="author" placeholder="Your name" style="flex: 1;">
+          <select id="category" style="flex: 1;">
+            <option value="General">General</option>
+            <option value="Fantasy">Fantasy</option>
+            <option value="Sci-Fi">Sci-Fi</option>
+            <option value="Mystery">Mystery</option>
+            <option value="Romance">Romance</option>
+            <option value="Horror">Horror</option>
+          </select>
+        </div>
+        <button type="submit"><i class="fas fa-rocket"></i> Launch Story</button>
+      </form>
+    </section>
+
+    <!-- Stories Section -->
+    <section id="stories-section">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
+        <h2><i class="fas fa-scroll"></i> Enchanted Tales</h2>
+        <div class="search-container" style="min-width: 300px;">
+          <input type="text" id="search-input" placeholder="🔍 Search by title, author, content...">
+        </div>
+      </div>
+      <div id="stories-list" class="story-grid"></div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

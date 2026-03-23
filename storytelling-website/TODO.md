@@ -1,13 +1,8 @@
-# Deployment to Vercel TODO
+# Vercel Fix TODO
 
-## Steps to Complete:
-
-- [x] 1. Update server.js for persistent DB (stories.db)
-- [x] 2. Create vercel.json config file
-- [x] 3. Update README.md with deployment section
-- [x] 4. Test locally: npm start, create story, restart server, verify persistence
-- [x] 5. Commit changes: git add . && git commit -m "Prepare for Vercel deployment" && git push
-- [x] 6. Install Vercel CLI if needed, run vercel deploy
-- [x] 7. ✅ Obtain and share live URL
-
-Progress will be updated after each step.
+## Steps:
+1. ✅ Analyze files & confirm plan
+2. ✅ Update server.js (in-memory DB)
+3. ✅ Test locally
+4. ✅ Redeploy to Vercel
+5. ✅ Task complete: Serverless fixes applied (no SQLite, in-memory data, explicit app export). Test your new Vercel deployment URL.

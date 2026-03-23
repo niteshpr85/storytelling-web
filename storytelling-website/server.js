@@ -1,108 +1,143 @@
 const express = require('express');
-const sqlite3 = require('sqlite3').verbose();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
 
 const app = express();
-const port = 3000;
 
+// Middleware
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
-const db = new sqlite3.Database(path.join(__dirname, 'stories.db'));
+// In-memory data store (serverless compatible - resets on cold starts)
+let stories = [
+  {
+    id: 1,
+    title: 'The Enchanted Forest',
+    content: 'Once upon a time in a magical forest where trees whispered secrets and fireflies danced like living stars, a young girl named Elara discovered a hidden path...',
+    author: 'Elara Green',
+    category: 'Fantasy',
+    likes: 12,
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString()
+  },
+  {
+    id: 2,
+    title: 'Space Odyssey Begins',
+    content: 'Captain Nova gripped the controls as the Stellar Wing pierced the atmosphere. Stars became rivers of light as she entered hyperspace...',
+    author: 'Nova Starr',
+    category: 'Sci-Fi',
+    likes: 28,
+    created_at: new Date(Date.now() - 86400000).toISOString(), // Yesterday
+    updated_at: new Date(Date.now() - 86400000).toISOString()
+  },
+  {
+    id: 3,
+    title: 'Mystery of the Old Manor',
+    content: 'Rain lashed the windows of Blackwood Manor as detective Riley uncovered the first clue - a locket hidden behind a portrait...',
+    author: 'Riley Black',
+    category: 'Mystery',
+    likes: 8,
+    created_at: new Date(Date.now() - 172800000).toISOString(), // 2 days ago
+    updated_at: new Date(Date.now() - 172800000).toISOString()
+  }
+];
 
-db.serialize(() => {
-  db.run(`CREATE TABLE stories (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    title TEXT NOT NULL,
-    content TEXT NOT NULL,
-    author TEXT,
-    category TEXT DEFAULT 'General',
-    likes INTEGER DEFAULT 0,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  )`);
+let nextId = 4;
 
-  // Seed sample stories with categories and likes
-  const stmt = db.prepare('INSERT INTO stories (title, content, author, category, likes) VALUES (?, ?, ?, ?, ?)');
-  stmt.run('The Enchanted Forest', 'Once upon a time in a magical forest where trees whispered secrets and fireflies danced like living stars, a young girl named Elara discovered a hidden path...', 'Elara Green', 'Fantasy', 12);
-  stmt.run('Space Odyssey Begins', 'Captain Nova gripped the controls as the Stellar Wing pierced the atmosphere. Stars became rivers of light as she entered hyperspace...', 'Nova Starr', 'Sci-Fi', 28);
-  stmt.run('Mystery of the Old Manor', 'Rain lashed the windows of Blackwood Manor as detective Riley uncovered the first clue - a locket hidden behind a portrait...', 'Riley Black', 'Mystery', 8);
-  stmt.finalize();
-});
+// Generate next ID
+function getNextId() {
+  const id = nextId;
+  nextId++;
+  return id;
+}
+
+// Helper: Find story by ID
+function findStory(id) {
+  return stories.find(s => s.id === parseInt(id));
+}
 
 // GET all stories
 app.get('/api/stories', (req, res) => {
-  db.all('SELECT * FROM stories ORDER BY created_at DESC', (err, rows) => {
-    if (err) res.status(500).json({ error: err.message });
-    else res.json(rows);
-  });
+  const sortedStories = [...stories].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  res.json(sortedStories);
 });
 
 // GET single story
 app.get('/api/stories/:id', (req, res) => {
-  const id = req.params.id;
-  db.get('SELECT * FROM stories WHERE id = ?', [id], (err, row) => {
-    if (err) res.status(500).json({ error: err.message });
-    else if (!row) res.status(404).json({ error: 'Story not found' });
-    else res.json(row);
-  });
+  const story = findStory(req.params.id);
+  if (!story) {
+    return res.status(404).json({ error: 'Story not found' });
+  }
+  res.json(story);
 });
 
 // POST new story
 app.post('/api/stories', (req, res) => {
   const { title, content, author, category } = req.body;
-  if (!title || !content) return res.status(400).json({ error: 'Title and content required' });
-  
-  db.run('INSERT INTO stories (title, content, author, category) VALUES (?, ?, ?, ?)', 
-    [title, content, author || 'Anonymous', category || 'General'], 
-    function(err) {
-      if (err) res.status(500).json({ error: err.message });
-      else res.json({ id: this.lastID });
-    }
-  );
+  if (!title || !content) {
+    return res.status(400).json({ error: 'Title and content required' });
+  }
+
+  const newStory = {
+    id: getNextId(),
+    title,
+    content,
+    author: author || 'Anonymous',
+    category: category || 'General',
+    likes: 0,
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString()
+  };
+
+  stories.push(newStory);
+  res.json({ id: newStory.id });
 });
 
 // PUT update story
 app.put('/api/stories/:id', (req, res) => {
-  const id = req.params.id;
+  const story = findStory(req.params.id);
+  if (!story) {
+    return res.status(404).json({ error: 'Story not found' });
+  }
+
   const { title, content, author, category } = req.body;
-  if (!title || !content) return res.status(400).json({ error: 'Title and content required' });
-  
-  db.run('UPDATE stories SET title = ?, content = ?, author = ?, category = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?', 
-    [title, content, author || 'Anonymous', category || 'General', id], function(err) {
-      if (err) res.status(500).json({ error: err.message });
-      else if (this.changes === 0) res.status(404).json({ error: 'Story not found' });
-      else res.json({ message: 'Story updated' });
-    }
-  );
+  if (!title || !content) {
+    return res.status(400).json({ error: 'Title and content required' });
+  }
+
+  story.title = title;
+  story.content = content;
+  story.author = author || 'Anonymous';
+  story.category = category || 'General';
+  story.updated_at = new Date().toISOString();
+
+  res.json({ message: 'Story updated' });
 });
 
 // DELETE story
 app.delete('/api/stories/:id', (req, res) => {
-  const id = req.params.id;
-  db.run('DELETE FROM stories WHERE id = ?', [id], function(err) {
-    if (err) res.status(500).json({ error: err.message });
-    else if (this.changes === 0) res.status(404).json({ error: 'Story not found' });
-    else res.json({ message: 'Story deleted' });
-  });
+  const index = stories.findIndex(s => s.id === parseInt(req.params.id));
+  if (index === -1) {
+    return res.status(404).json({ error: 'Story not found' });
+  }
+
+  stories.splice(index, 1);
+  res.json({ message: 'Story deleted' });
 });
 
 // POST like story
 app.post('/api/stories/:id/like', (req, res) => {
-  const id = req.params.id;
-  db.run('UPDATE stories SET likes = likes + 1 WHERE id = ?', [id], function(err) {
-    if (err) res.status(500).json({ error: err.message });
-    else if (this.changes === 0) res.status(404).json({ error: 'Story not found' });
-    else db.get('SELECT likes FROM stories WHERE id = ?', [id], (err, row) => {
-      if (err) res.status(500).json({ error: err.message });
-      else res.json({ likes: row.likes });
-    });
-  });
+  const story = findStory(req.params.id);
+  if (!story) {
+    return res.status(404).json({ error: 'Story not found' });
+  }
+
+  story.likes += 1;
+  res.json({ likes: story.likes });
 });
 
-app.listen(port, () => {
-  console.log(`🚀 Advanced Storytelling Server: http://localhost:${port}`);
-});
+// Export for Vercel serverless
+module.exports = app;
+

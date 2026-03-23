@@ -8,11 +8,8 @@
 - 3D card hovers & micro-interactions  
 - Responsive grid layout
 - FontAwesome icons & gradient typography
-<<<<<<< HEAD
-=======
-  <img width="743" height="762" alt="image" src="https://github.com/user-attachments/assets/14732c39-e077-458a-bae3-f321acc0370e" />
+  <img width="743" height="762" alt="image" src="https://github.com/user-attachments/assets/fdf2dbc0-625f-4988-b90a-9a9dcf1dc4ed" />
 
->>>>>>> bf097ef1411f8de0ecb21f10338d84b7e3b2f5c1
 
 ### ⚡ **Advanced Functionality**
 ```
@@ -37,11 +34,7 @@ Platform: http://localhost:3000
 Frontend: Vanilla HTML/CSS/JavaScript
 Backend: Node.js + Express.js
 Database: SQLite (in-memory demo)
-<<<<<<< HEAD
-**Deployment:** Vercel (recommended), Railway, Render. See "🌐 Vercel Deployment" section.
-=======
 Deployment: Zero-config - just npm start!
->>>>>>> bf097ef1411f8de0ecb21f10338d84b7e3b2f5c1
 ```
 
 ## 🎮 Quick Start
@@ -81,23 +74,6 @@ Edit `public/index.html` `<select>` options
 **Dark Mode** (future):
 Add theme toggle in header
 
-<<<<<<< HEAD
-## 🌐 Vercel Deployment
-
-```bash
-1. git add . &amp;&amp; git commit -m "Deploy ready" &amp;&amp; git push
-2. vercel login
-3. vercel --prod
-```
-
-**Live URL:** [YOUR_VERCEL_URL]
-
-**Notes:** 
-- Persistent SQLite (stories.db)
-- Auto-scales, free tier OK for demo
-
-=======
->>>>>>> bf097ef1411f8de0ecb21f10338d84b7e3b2f5c1
 ## 📁 File Structure
 ```
 ├── server.js          # Express API + SQLite
@@ -115,19 +91,9 @@ Add theme toggle in header
 - **Space Odyssey Begins** (Sci-Fi, 28 likes)  
 - **Mystery of the Old Manor** (Mystery, 8 likes)
 
-<<<<<<< HEAD
-## 🏆 **JUDGING CRITERIA OPTIMIZED** (100/100 points)
-
-=======
->>>>>>> bf097ef1411f8de0ecb21f10338d84b7e3b2f5c1
 
 
-### **BONUS FEATURES** (+20%):
-```
-✅ Accessibility (WCAG AA): High contrast, screen reader, keyboard nav
-✅ Performance: Lazy load, optimized CSS/JS (~50kb total)  
-✅ Unique: Like system + categories + real-time search
-✅ Creative: Glassmorphism + particle backgrounds
+
 ```
 
 ## 🤝 Contributing
@@ -137,10 +103,6 @@ Add theme toggle in header
 4. `npm start` & test
 5. Submit PR
 
-## 📄 License
-MIT - Use freely for any project!
-
----
 
 **Built with ❤️ for storytellers worldwide**  
 

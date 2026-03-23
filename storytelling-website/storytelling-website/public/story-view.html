@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Story</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="index.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> Back to Tales
+      </a>
+      <h1 id="story-title">Loading...</h1>
+    </header>
+
+    <div id="story-details" class="story-full fade-in">
+      <div class="story-meta-full">
+        <span id="story-author"><i class="fas fa-user"></i> By Anonymous</span>
+        <span id="story-date"><i class="fas fa-clock"></i> </span>
+      </div>
+      <div id="story-content-full" class="story-content-full"></div>
+    </div>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const storyId = urlParams.get('id');
+    
+    if (!storyId) {
+      document.body.innerHTML = '<div class="error"><i class="fas fa-exclamation-triangle"></i> Story not found</div>';
+    } else {
+      fetch(`/api/stories/${storyId}`)
+        .then(response => response.json())
+        .then(story => {
+          if (story.error) {
+            document.body.innerHTML = '<div class="error"><i class="fas fa-exclamation-triangle"></i> Story not found</div>';
+            return;
+          }
+          
+          document.getElementById('page-title').textContent = story.title;
+          document.getElementById('story-title').textContent = story.title;
+          document.getElementById('story-author').innerHTML = `<i class="fas fa-user"></i> By ${story.author || 'Anonymous'}`;
+          document.getElementById('story-date').innerHTML = `<i class="fas fa-clock"></i> ${new Date(story.created_at).toLocaleDateString()}`;
+          document.getElementById('story-content-full').textContent = story.content;
+        })
+        .catch(() => {
+          document.body.innerHTML = '<div class="error"><i class="fas fa-exclamation-triangle"></i> Failed to load story</div>';
+        });
+    }
+  </script>
+</body>
+</html>
