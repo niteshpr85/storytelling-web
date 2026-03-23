@@ -8,6 +8,8 @@
 - 3D card hovers & micro-interactions  
 - Responsive grid layout
 - FontAwesome icons & gradient typography
+  <img width="743" height="762" alt="image" src="https://github.com/user-attachments/assets/fdf2dbc0-625f-4988-b90a-9a9dcf1dc4ed" />
+
 
 ### ⚡ **Advanced Functionality**
 ```
@@ -103,16 +105,13 @@ Add theme toggle in header
 - **Space Odyssey Begins** (Sci-Fi, 28 likes)  
 - **Mystery of the Old Manor** (Mystery, 8 likes)
 
-## 🏆 **JUDGING CRITERIA OPTIMIZED** (100/100 points)
+
+<<<<<<< HEAD
+
+=======
+>>>>>>> bf097ef1411f8de0ecb21f10338d84b7e3b2f5c1
 
 
-
-### **BONUS FEATURES** (+20%):
-```
-✅ Accessibility (WCAG AA): High contrast, screen reader, keyboard nav
-✅ Performance: Lazy load, optimized CSS/JS (~50kb total)  
-✅ Unique: Like system + categories + real-time search
-✅ Creative: Glassmorphism + particle backgrounds
 ```
 
 ## 🤝 Contributing
@@ -122,10 +121,6 @@ Add theme toggle in header
 4. `npm start` & test
 5. Submit PR
 
-## 📄 License
-MIT - Use freely for any project!
-
----
 
 **Built with ❤️ for storytellers worldwide**  
 
