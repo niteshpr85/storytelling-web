@@ -8,6 +8,8 @@
 - 3D card hovers & micro-interactions  
 - Responsive grid layout
 - FontAwesome icons & gradient typography
+  <img width="743" height="762" alt="image" src="https://github.com/user-attachments/assets/14732c39-e077-458a-bae3-f321acc0370e" />
+
 
 ### ⚡ **Advanced Functionality**
 ```
