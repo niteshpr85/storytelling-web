@@ -32,7 +32,7 @@ Platform: http://localhost:3000
 Frontend: Vanilla HTML/CSS/JavaScript
 Backend: Node.js + Express.js
 Database: SQLite (in-memory demo)
-Deployment: Zero-config - just npm start!
+**Deployment:** Vercel (recommended), Railway, Render. See "🌐 Vercel Deployment" section.
 ```
 
 ## 🎮 Quick Start
@@ -71,6 +71,20 @@ Edit `public/index.html` `<select>` options
 
 **Dark Mode** (future):
 Add theme toggle in header
+
+## 🌐 Vercel Deployment
+
+```bash
+1. git add . &amp;&amp; git commit -m "Deploy ready" &amp;&amp; git push
+2. vercel login
+3. vercel --prod
+```
+
+**Live URL:** [YOUR_VERCEL_URL]
+
+**Notes:** 
+- Persistent SQLite (stories.db)
+- Auto-scales, free tier OK for demo
 
 ## 📁 File Structure
 ```

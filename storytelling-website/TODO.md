@@ -1,10 +1,13 @@
-# Advanced Storytelling Features TODO
+# Deployment to Vercel TODO
 
-**Current Status:** Beautiful UI ✅ | Basic CRUD ✅
+## Steps to Complete:
 
-**New Features:**
-- [x] 1. Backend: Add likes column, edit/delete/like endpoints
-- [x] 2. Frontend: Search/filter, edit/delete buttons, likes counter  
-- [x] 3. Categories in story form
-- [x] 4. Story stats display
-- [x] 5. Complete & test
+- [x] 1. Update server.js for persistent DB (stories.db)
+- [x] 2. Create vercel.json config file
+- [x] 3. Update README.md with deployment section
+- [x] 4. Test locally: npm start, create story, restart server, verify persistence
+- [ ] 5. Commit changes: git add . && git commit -m "Prepare for Vercel deployment" && git push
+- [ ] 6. Install Vercel CLI if needed, run vercel deploy
+- [ ] 7. ✅ Obtain and share live URL
+
+Progress will be updated after each step.

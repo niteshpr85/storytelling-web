@@ -11,7 +11,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
-const db = new sqlite3.Database(':memory:');
+const db = new sqlite3.Database(path.join(__dirname, 'stories.db'));
 
 db.serialize(() => {
   db.run(`CREATE TABLE stories (
